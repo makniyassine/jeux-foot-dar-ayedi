@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Jeu Dataset — 2 Joueurs</title>
+
+<style>
+    body {
+        font-family: Arial;
+        text-align: center;
+        padding: 40px;
+        background: #f7f7f7;
+    }
+
+    #card-container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+    .card {
+        width: 180px;
+        height: 120px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    #controls button {
+        padding: 15px 25px;
+        font-size: 18px;
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        color: white;
+    }
+
+    #p1Btn { background: #3f51b5; }
+    #p2Btn { background: #e91e63; }
+    #passBtn { background: #9e9e9e; }
+
+    #scoreboard {
+        margin-top: 30px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Jeu Dataset – Deux Joueurs</h1>
+
+<button id="startBtn">START</button>
+
+<div id="card-container" style="display:none;">
+    <div class="card" id="card1"></div>
+    <div class="card" id="card2"></div>
+</div>
+
+<div id="controls" style="display:none;">
+    <button id="p1Btn">Player 1</button>
+    <button id="p2Btn">Player 2</button>
+    <button id="passBtn">Passer</button>
+</div>
+
+<div id="scoreboard">
+    Player 1 : <span id="score1">0</span> | 
+    Player 2 : <span id="score2">0</span>
+</div>
+
+<script>
+// 🔥 Dataset intégré directement
+let dataset = [
+    // Postes
+    "(GK) Gardien de but","(CB)Défenseur central","(LB)Défenseur gauche","(RB)Défenseur droit",
+    "(CM)Milieu","(LW)Ailier gauche","(RW)Ailier droit","(ST)Attaquant",
+
+    // Joueurs
+    "Lionel Messi","Cristiano Ronaldo","Neymar","Kylian Mbappé","Erling Haaland",
+    "Luka Modric","Xavi Hernandez","Andres Iniesta","Sergio Ramos","Virgil van Dijk",
+    "Kevin De Bruyne","Paul Pogba"," Salah"," Lewandowski","Harry Kane",
+    "Manuel Neuer","Jan Oblak"," ter Stegen","Luis Suarez"," Ibrahimovic","maradona",
+
+    // Equipes / Clubs
+    "FC Barcelone","Real Madrid","ATL. madrid","PSG","Manchester City","Manchester United",
+    "Liverpool","Bayern Munich","Juventus","AC Milan","Chelsea","Arsenal","Inter Milan",
+
+    // Ligues / Compétitions
+    "Champions League","Ligue 1","Premier League","La Liga","Serie A","Bundesliga","Europa League","World Cup", "Euro",
+
+        "(winner) Champions League","(winner) Ligue 1","(winner) Premier League","(winner) La Liga","(winner) Serie A","(winner) Bundesliga","(winner) Europa League","(winner) World Cup", "(winner) Euro",
+
+    // Continents / Régions
+    "Europe","Amérique","Asie","Afrique",
+
+    // Entraîneurs célèbres
+    "Pep Guardiola"," Klopp","Mourinho","Carlo Ancelotti","Diego Simeone", "Arteta", "Flik","valvarde","conte"
+];
+// -------------
+
+let remaining = [];
+let p1Score = 0;
+let p2Score = 0;
+
+// Mélanger une liste
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Nouvelle paire / round
+function nextRound() {
+    if (remaining.length < 2) {
+        alert("🎉 Fin du jeu !\nPlayer 1 : " + p1Score + "\nPlayer 2 : " + p2Score);
+        return;
+    }
+
+    let item1 = remaining.pop();
+    let item2 = remaining.pop();
+
+    document.getElementById("card1").textContent = item1;
+    document.getElementById("card2").textContent = item2;
+}
+
+// Démarrer le jeu
+document.getElementById("startBtn").onclick = () => {
+    p1Score = 0;
+    p2Score = 0;
+
+    document.getElementById("score1").textContent = 0;
+    document.getElementById("score2").textContent = 0;
+
+    remaining = shuffle([...dataset]);
+
+    document.getElementById("card-container").style.display = "flex";
+    document.getElementById("controls").style.display = "block";
+
+    nextRound();
+};
+
+// Boutons Player 1 / Player 2
+document.getElementById("p1Btn").onclick = () => {
+    p1Score++;
+    document.getElementById("score1").textContent = p1Score;
+    nextRound();
+};
+
+document.getElementById("p2Btn").onclick = () => {
+    p2Score++;
+    document.getElementById("score2").textContent = p2Score;
+    nextRound();
+};
+
+// Bouton Passer
+document.getElementById("passBtn").onclick = () => {
+    nextRound(); // ne change pas les scores
+};
+</script>
+
+</body>
+</html>
