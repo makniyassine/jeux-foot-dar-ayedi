@@ -132,6 +132,14 @@ h1 {
     font-weight: 800;
 }
 
+.card {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.scoreItem {
+   animation: pop 0.3s ease;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -157,6 +165,30 @@ h1 {
     border-color: #4CAF50;
     box-shadow: 0 0 8px rgba(76,175,80,0.3);
 }
+.buzzer {
+    padding: 20px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: #ffcc00;
+    transition: 0.2s ease-in-out;
+    margin: 0 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.buzzer:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buzzerActive {
+    background: #ff3b3b !important;
+    color: white;
+    transform: scale(1.1);
+}
+
 </style>
 
 </head>
@@ -188,6 +220,12 @@ h1 {
         <div class="scoreItem"><span id="label2">Player 2</span> : <span id="score2">0</span></div>
     </div>
 </div>
+<div id="buzzers" style="margin-top:40px;">
+    <button id="buzzer1" class="buzzer">Buzzer Player 1</button>
+    <button id="buzzer2" class="buzzer">Buzzer Player 2</button>
+</div>
+
+<h2 id="timer" style="margin-top:20px; font-size:32px; display:none;">10</h2>
 
 
 <script>
@@ -198,13 +236,19 @@ let dataset = [
     // POSITIONS
     // ==========================
     "POSITION: (GK) Gardien de but",
+    "POSITION: (GK) Gardien de but",
     "POSITION: (CB) Défenseur central",
     "POSITION: (LB) Défenseur gauche",
     "POSITION: (RB) Défenseur droit",
     "POSITION: (CM) Milieu central",
+    "POSITION: (CDM) Milieu défensif",
+    "POSITION: (CM) Milieu central",
+    "POSITION: (CAM) Milieu offensif",
     "POSITION: (LW) Ailier gauche",
     "POSITION: (RW) Ailier droit",
     "POSITION: (ST) Attaquant",
+    "POSITION: (ST) Attaquant",
+
 
     // ==========================
     // PLAYERS — ACTUEL
@@ -524,22 +568,85 @@ document.getElementById("p2Btn").textContent = n2;
 
     nextRound();
 };
-
 document.getElementById("p1Btn").onclick = () => {
     p1Score++;
     document.getElementById("score1").textContent = p1Score;
+    onChoiceMade();     // 🔥 Réinitialise les buzzers
     nextRound();
 };
 
 document.getElementById("p2Btn").onclick = () => {
     p2Score++;
     document.getElementById("score2").textContent = p2Score;
+    onChoiceMade();     // 🔥 Réinitialise les buzzers
     nextRound();
 };
 
 document.getElementById("passBtn").onclick = () => {
+    onChoiceMade();     // 🔥 Réinitialise les buzzers
     nextRound();
 };
+
+let buzzerActive = false;
+let timerInterval;
+let timeLeft = 10;
+
+function resetBuzzers() {
+    clearInterval(timerInterval);
+    buzzerActive = false;
+    timeLeft = 10;
+
+    document.getElementById("timer").style.display = "none";
+
+    document.getElementById("buzzer1").disabled = false;
+    document.getElementById("buzzer2").disabled = false;
+
+    document.getElementById("buzzer1").classList.remove("buzzerActive");
+    document.getElementById("buzzer2").classList.remove("buzzerActive");
+}
+
+function startCountdown(activeBuzzer) {
+    buzzerActive = true;
+
+    // Désactiver l'autre buzzer
+    if (activeBuzzer === 1) {
+        document.getElementById("buzzer2").disabled = true;
+    } else {
+        document.getElementById("buzzer1").disabled = true;
+    }
+
+    // Montrer le timer
+    document.getElementById("timer").style.display = "block";
+    document.getElementById("timer").textContent = "10";
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            resetBuzzers();
+        }
+    }, 1000);
+}
+
+document.getElementById("buzzer1").onclick = () => {
+    if (!buzzerActive) {
+        document.getElementById("buzzer1").classList.add("buzzerActive");
+        startCountdown(1);
+    }
+};
+
+document.getElementById("buzzer2").onclick = () => {
+    if (!buzzerActive) {
+        document.getElementById("buzzer2").classList.add("buzzerActive");
+        startCountdown(2);
+    }
+};
+// Reset des buzzers quand un joueur est sélectionné ou passe
+function onChoiceMade() {
+    resetBuzzers();  // réinitialise automatiquement les buzzers + timer
+}
+
 </script>
 
 </body>
