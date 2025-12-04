@@ -165,29 +165,6 @@ h1 {
     border-color: #4CAF50;
     box-shadow: 0 0 8px rgba(76,175,80,0.3);
 }
-.buzzer {
-    padding: 20px 40px;
-    font-size: 24px;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #ffcc00;
-    transition: 0.2s ease-in-out;
-    margin: 0 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.buzzer:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.buzzerActive {
-    background: #ff3b3b !important;
-    color: white;
-    transform: scale(1.1);
-}
 #controls {
     margin-top: 80px;       /* espace entre cartes et buzzers */
     display: flex;
@@ -205,46 +182,49 @@ h1 {
 }
 /* --- Section Timer --- */
 #timer {
-    font-size: 40px;
+    font-size: 48px;            /* un peu plus grand */
     font-weight: bold;
     color: #d32f2f;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* --- Container buzzers (toujours en bas) --- */
+/* --- Container buzzers (toujours en bas, centré) --- */
 #buzzers {
     position: fixed;
-    bottom: 40px;         /* distance du bas */
+    bottom: 40px;               /* plus proche du bas */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 50px;
     justify-content: center;
+    align-items: center;
+    gap: 60px;                  /* espace entre buzzers */
+    z-index: 1000;              /* au-dessus de tout */
+    width: 100%;
 }
 
-/* --- Style des buzzers --- */
+/* --- Boutons buzzer --- */
 .buzzer {
-    background: #3f51b5;
-    color: white;
-    border: none;
-    padding: 22px 50px;
-    font-size: 22px;
+    padding: 40px 110px;         /* plus grand */
+    font-size: 28px;            /* texte plus gros */
     font-weight: bold;
-    border-radius: 50px;
+    border: none;
+    border-radius: 60px;        /* forme plus ronde */
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: 0.25s ease-in-out;
+    background: #ffcc00;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.buzzer:hover {
-    transform: scale(1.08);
-    filter: brightness(1.15);
+.buzzer:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-/* Buzzer Player 2 couleur différente */
-#buzzer2 {
-    background: #e91e63;
+.buzzerActive {
+    background: #ff3b3b !important;
+    color: white;
+    transform: scale(1.15);     /* effet zoom à l’activation */
 }
 
 
