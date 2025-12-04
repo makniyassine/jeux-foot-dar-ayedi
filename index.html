@@ -179,37 +179,31 @@ h1 {
 #restartBtn:hover {
     transform: scale(1.07);
     filter: brightness(1.15);
-}
-/* --- Section Timer --- */
+}/* --- Section Timer --- */
 #timer {
-    font-size: 48px;            /* un peu plus grand */
+    font-size: 48px;            /* texte plus grand */
     font-weight: bold;
     color: #d32f2f;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 60px;        /* grand espace sous le timer */
 }
 
-/* --- Container buzzers (toujours en bas, centré) --- */
+/* --- Container buzzers (sous le timer) --- */
 #buzzers {
-    position: fixed;
-    bottom: 40px;               /* plus proche du bas */
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;                  /* espace entre buzzers */
-    z-index: 1000;              /* au-dessus de tout */
-    width: 100%;
+    gap: 80px;                  /* grand espace entre les buzzers */
+    margin-bottom: 40px;        /* espace sous les buzzers */
 }
 
 /* --- Boutons buzzer --- */
 .buzzer {
-    padding: 40px 110px;         /* plus grand */
-    font-size: 28px;            /* texte plus gros */
+    padding: 80px 150px;         /* boutons plus grands */
+    font-size: 58px;
     font-weight: bold;
     border: none;
-    border-radius: 60px;        /* forme plus ronde */
+    border-radius: 60px;        /* forme ronde */
     cursor: pointer;
     background: #ffcc00;
     transition: 0.2s ease-in-out;
@@ -224,7 +218,7 @@ h1 {
 .buzzerActive {
     background: #ff3b3b !important;
     color: white;
-    transform: scale(1.15);     /* effet zoom à l’activation */
+    transform: scale(1.15);     /* zoom lors de l’activation */
 }
 
 
