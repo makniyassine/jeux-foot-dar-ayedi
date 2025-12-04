@@ -188,6 +188,65 @@ h1 {
     color: white;
     transform: scale(1.1);
 }
+#controls {
+    margin-top: 80px;       /* espace entre cartes et buzzers */
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+#card-container {
+    margin-bottom: 40px;   /* espace haut */
+}
+
+#restartBtn:hover {
+    transform: scale(1.07);
+    filter: brightness(1.15);
+}
+/* --- Section Timer --- */
+#timer {
+    font-size: 40px;
+    font-weight: bold;
+    color: #d32f2f;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* --- Container buzzers (toujours en bas) --- */
+#buzzers {
+    position: fixed;
+    bottom: 40px;         /* distance du bas */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+/* --- Style des buzzers --- */
+.buzzer {
+    background: #3f51b5;
+    color: white;
+    border: none;
+    padding: 22px 50px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: 0.25s ease-in-out;
+}
+
+.buzzer:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+}
+
+/* Buzzer Player 2 couleur différente */
+#buzzer2 {
+    background: #e91e63;
+}
+
 
 </style>
 
@@ -220,12 +279,14 @@ h1 {
         <div class="scoreItem"><span id="label2">Player 2</span> : <span id="score2">0</span></div>
     </div>
 </div>
+
+<h2 id="timer" style="margin-top:20px; font-size:32px; display:none;">10</h2>
 <div id="buzzers" style="margin-top:40px;">
     <button id="buzzer1" class="buzzer">Buzzer Player 1</button>
     <button id="buzzer2" class="buzzer">Buzzer Player 2</button>
 </div>
 
-<h2 id="timer" style="margin-top:20px; font-size:32px; display:none;">10</h2>
+
 
 
 <script>
